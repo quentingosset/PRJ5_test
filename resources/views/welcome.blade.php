@@ -1,17 +1,23 @@
 @extends('canevas')
 @section('title','ChatRoom - ESI')
 @section('header_css')
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <meta name="csrf-token" content="{{csrf_token()}}">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<meta name="csrf-token" content="{{csrf_token()}}">
+<style>
+    .sceance{
+        width:28px;
+        height:28px;
+    }
+</style>
 @stop
 @section('header_js')
 @stop
 @section('footer_js')
-    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     @if( $page === 'listings')
         <script src="{{ asset('js/scriptListings.js') }}"></script>
     @endif
@@ -32,28 +38,69 @@
 
         @if( $page === 'listings')
             <div class="my-3 p-3 bg-white rounded shadow-sm">
-            <span class="pb-2 mb-0 col-md-6">
-                Groupe :
-                    <select class="listeChannel" onchange="showDetails()">
-                        <option>E12</option>
-                        @foreach($etudiant as $key => $etu)
-                            <!--<option value="{{$key}}">{{$etu['nom']." - ".$etu['prenom']." crédits"}}</option>-->
-                        @endforeach
-                    </select>
-                </span>
+                <div class="row">
+                    <div class="col col-lg-7"> 
+                        Groupe :
+                            <select class="listeChannel" onchange="showDetails()">
+                                <option>E12</option>
+                                @foreach($etudiant as $key => $etu)
+                                    <option value="{{$key}}">{{$etu->nom." - ".$etu->prenom." crédits"}}</option>
+                                @endforeach
+                            </select>
+                    </div>
+                    <div class="col col-lg-5" style="text-align: right;">
+                    <button type="button" class="btn btn-primary">Ajouter un étudiant</button>
+                        <button type="button" class="btn btn-success">Faire les présences</button>
+                    </div>
+                </div>
             </div>
-            <div id="detailsBox" class="col-md-12 bg-white rounded" style="height: 400px;">
-                <table class="table">
+            <div id="detailsBox" class="col-md-12 p-3 bg-white rounded">
+                <table id="table_id" class="table table-striped table-bordered">
                     <thead style="text-align: center;">
                         <tr>
                             <th scope="col">MATRICULE</th>
                             <th scope="col">NOM</th>
-                            <th scope="col">PRENOM</th>
-                            <th scope="col">PRESENCE</th>
-                            <th scope="col">ACTION</th>
+                            <th scope="col" class="no-sort">PRENOM</th>
+                            <th scope="col" class="no-sort sceance">1</th>
+                            <th scope="col" class="no-sort sceance">2</th>
+                            <th scope="col" class="no-sort sceance">3</th>
+                            <th scope="col" class="no-sort sceance">4</th>
+                            <th scope="col" class="no-sort sceance">5</th>
+                            <th scope="col" class="no-sort sceance">6</th>
+                            <th scope="col" class="no-sort sceance">7</th>
+                            <th scope="col" class="no-sort sceance">8</th>
+                            <th scope="col" class="no-sort sceance">9</th>
+                            <th scope="col" class="no-sort sceance">10</th>
+                            <th scope="col" class="no-sort sceance">11</th>
+                            <th scope="col" class="no-sort sceance">12</th>
+                            <th scope="col" class="no-sort sceance">13</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort">PRESENCE</th>
                         </tr>
                     </thead>
                     <tbody style="text-align: center;" class="programme">
+                        @foreach($etudiant as $key => $etu)
+                            <tr class="">
+                                <td>{{strtoupper($etu->matricule)}}</td>
+                                <td>{{strtoupper($etu->nom)}}</td>
+                                <td>{{strtoupper($etu->prenom)}}</td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td class="sceance"></td>
+                                <td>1/2</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

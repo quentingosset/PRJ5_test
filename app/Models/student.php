@@ -9,7 +9,7 @@ class student extends Model
     protected $table = 'student';
 
     public static function listingStudent(){
-        $students = DB::table('students')->get();
+        $students = DB::table('students')->orderBy('matricule','ASC')->get();
 
         $arrayUser = array();
         /*foreach ($students as $value ){

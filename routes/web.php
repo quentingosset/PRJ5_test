@@ -18,7 +18,4 @@
  */
 
 Route::get('/', 'StudentController@accueil');
-
-Route::get('/pae/students','StudentController@index');
-Route::get('/pae/students/{id}','StudentController@progDetaille');
-Route::delete('/pae/students','StudentController@delete');
+Route::get('/presence', 'StudentController@accueil');

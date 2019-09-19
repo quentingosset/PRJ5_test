@@ -1,5 +1,5 @@
 function showDetails(userId){
-    $.get("./pae/students/"+userId, function (data, status) {
+    $.get("./api/presence/students/"+userId, function (data, status) {
         $('.programme tr').remove();
         if(data.length == 0){
             $('.programme').append('<tr><td>Aucun programme</td></tr>');
@@ -23,7 +23,7 @@ function showDetails(userId){
 function remove(idProg,userId){
     let token = $("meta[name='csrf-token']").attr("content");
     $.ajax({
-       url: '/pae/students',
+       url: './api/presence/students',
         type: 'post',
         data: {
            "id" : idProg,
