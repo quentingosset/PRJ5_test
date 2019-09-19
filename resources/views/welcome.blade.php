@@ -13,6 +13,15 @@
         width:28px;
         height:28px;
     }
+    tr, th{
+        white-space: nowrap;
+    }
+    
+    @media (min-width: 1200px){
+        .container {
+            max-width: 1700px;
+        }
+    }
 </style>
 @stop
 @section('header_js')
@@ -35,7 +44,7 @@
         <a class="btn btn-outline-primary" href="#">Sign up</a>
     </div>
     <main role="main" class="container">
-
+    <!--<main role="main" style="padding: 50px;padding-top: 0;">-->
         @if( $page === 'listings')
             <div class="my-3 p-3 bg-white rounded shadow-sm">
                 <div class="row">
@@ -61,19 +70,29 @@
                             <th scope="col">MATRICULE</th>
                             <th scope="col">NOM</th>
                             <th scope="col" class="no-sort">PRENOM</th>
-                            <th scope="col" class="no-sort sceance">1</th>
-                            <th scope="col" class="no-sort sceance">2</th>
-                            <th scope="col" class="no-sort sceance">3</th>
-                            <th scope="col" class="no-sort sceance">4</th>
-                            <th scope="col" class="no-sort sceance">5</th>
-                            <th scope="col" class="no-sort sceance">6</th>
-                            <th scope="col" class="no-sort sceance">7</th>
-                            <th scope="col" class="no-sort sceance">8</th>
-                            <th scope="col" class="no-sort sceance">9</th>
+                            <th scope="col" class="no-sort sceance">01</th>
+                            <th scope="col" class="no-sort sceance">02</th>
+                            <th scope="col" class="no-sort sceance">03</th>
+                            <th scope="col" class="no-sort sceance">04</th>
+                            <th scope="col" class="no-sort sceance">05</th>
+                            <th scope="col" class="no-sort sceance">06</th>
+                            <th scope="col" class="no-sort sceance">07</th>
+                            <th scope="col" class="no-sort sceance">08</th>
+                            <th scope="col" class="no-sort sceance">09</th>
                             <th scope="col" class="no-sort sceance">10</th>
                             <th scope="col" class="no-sort sceance">11</th>
                             <th scope="col" class="no-sort sceance">12</th>
                             <th scope="col" class="no-sort sceance">13</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
+                            <th scope="col" class="no-sort sceance">14</th>
                             <th scope="col" class="no-sort sceance">14</th>
                             <th scope="col" class="no-sort">PRESENCE</th>
                         </tr>
@@ -84,25 +103,103 @@
                                 <td>{{strtoupper($etu->matricule)}}</td>
                                 <td>{{strtoupper($etu->nom)}}</td>
                                 <td>{{strtoupper($etu->prenom)}}</td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
-                                <td class="sceance"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
+                                <td class="sceance bg-danger"></td>
+                                <td class="sceance bg-success"></td>
+                                <td class="sceance bg-warning"></td>
                                 <td>1/2</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm" >Quentin</div>
+                        <div class="col-sm" style="background-color:red;height:50px;"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+                        <div class="col-sm" style="background-color:red"></div>
+                        <div class="col-sm" style="background-color:green"></div>
+                        <div class="col-sm" style="background-color:yellow"></div>
+                        <div class="col-sm" style="background-color:orange"></div>
+
+                    </div>
+                    </div>
+                    <div class="col-md-2">
+<table class="table">
+  <thead>
+    <tr>
+        <th scope="col">Legende :</th>
+        <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style="/* width:20% */">
+        <td style="
+    width: 20%;
+">Présent</td>
+        <td class="sceance bg-success"></td>
+    </tr>
+    <tr>
+        <td>Malade</td>
+        <td class="sceance bg-warning"></td>
+    </tr>
+    <tr>
+        <td>Absent</td>
+        <td class="sceance bg-danger"></td>
+    </tr>
+
+  </tbody>
+    </table></div>
             </div>
         @endif
     </main>

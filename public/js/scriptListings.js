@@ -20,8 +20,12 @@ function showDetails(){
 $(document).ready(function() {
 $('#table_id').DataTable({
     "order": [[ 0, "asc" ]],
-     "columnDefs": [{ targets: 'no-sort', orderable: false }],
+     "columnDefs": [
+         { targets: 'no-sort', orderable: false },
+         ],
      searching: false,
+     responsive: true,
+     "scrollX": true,
      language: {
         processing:     "Traitement en cours...",
         search:         "Rechercher&nbsp;:",
