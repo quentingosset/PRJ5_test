@@ -8,24 +8,19 @@ class student extends Model
 {
     protected $table = 'student';
 
-    public static function creditByStudent(){
-        $students = DB::table('student')
-            ->join('program','student.id', "=", "program.student")
-            ->join('course','program.course','=','course.id')
-            ->select('student.*','program.*','course.*')
-            ->groupBy('student.id','program.id','course.id')
-            ->get();
+    public static function listingStudent(){
+        $students = DB::table('students')->get();
 
         $arrayUser = array();
-        foreach ($students as $value ){
+        /*foreach ($students as $value ){
             $arrayUser[$value->student]['name'] = $value->name;
             if(array_key_exists('credits',$arrayUser[$value->student])){
                 $arrayUser[$value->student]['credits'] += $value->credits;
             }else{
                 $arrayUser[$value->student]['credits'] = $value->credits;
             }
-        }
-        return $arrayUser;
+        }*/
+        return $students;
     }
 
     public static function progDetails($id){

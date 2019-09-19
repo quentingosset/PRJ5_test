@@ -14,7 +14,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return response()->json(student::creditByStudent());
+        return response()->json(student::listingStudent());
     }
 
     public function progDetaille($id){
@@ -22,7 +22,7 @@ class StudentController extends Controller
     }
 
     public function accueil(){
-        return view('welcome',['page' => 'welcome', 'etudiant' => student::creditByStudent()]);
+        return view('welcome',['page' => 'listings', 'etudiant' => student::listingStudent()]);
     }
 
     public function delete(){
