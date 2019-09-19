@@ -1,0 +1,24 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+/**
+ * IF MULTIPLE PROJECT ON WAMP/WWW/
+ * use commande artisan to
+ * php artisan serv
+ */
+
+Route::get('/', 'StudentController@accueil');
+
+Route::get('/pae/students','StudentController@index');
+Route::get('/pae/students/{id}','StudentController@progDetaille');
+Route::delete('/pae/students','StudentController@delete');
