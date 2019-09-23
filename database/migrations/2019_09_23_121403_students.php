@@ -13,20 +13,14 @@ class Students extends Migration
      */
     public function up()
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->integer('matricule');
-            $table->string('lastname');
-            $table->string('firstname')
+        if (!Schema::hasTable('students')) {
+            Schema::create('students', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->integer('matricule');
+                $table->string('lastname');
+                $table->string('firstname');
+            });
+        }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('students');
-    }
 }

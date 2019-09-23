@@ -13,21 +13,14 @@ class Presence extends Migration
      */
     public function up()
     {
-        Schema::create('presence', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('course');
-            $table->timestamp('date');
-            $table->integer('students_id')
-            $table->int('type');
-    }
-
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
-    public function down()
-    {
-        Schema::dropIfExists('presence');
+        if (!Schema::hasTable('presence')) {
+            Schema::create('presence', function (Blueprint $table) {
+                $table->bigIncrements('id');
+                $table->string('course');
+                $table->timestamp('date');
+                $table->integer('students_id');
+                $table->integer('types');
+            });
+        }
     }
 }
