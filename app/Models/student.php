@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 class student extends Model
 {
-    protected $table = 'student';
+    protected $table = 'students';
 
     public static function listingStudent(){
         $students = DB::table('students')->orderBy('matricule','ASC')->get();
