@@ -32,6 +32,14 @@
     @endif
     <script src="{{ asset('js/script.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#seance").click(function (){
+            document.location.href = "https://www.dofactory.com/sql/insert";
+        })
+    });
+    </script>
 @stop
 @section('content')
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
@@ -59,7 +67,7 @@
                     </div>
                     <div class="col col-lg-5" style="text-align: right;">
                     <button type="button" class="btn btn-primary">Ajouter un étudiant</button>
-                        <button type="button" class="btn btn-success">Faire les présences</button>
+                        <button type="button" id ="seance" class="btn btn-success">Faire les présences</button>
                     </div>
                 </div>
             </div>

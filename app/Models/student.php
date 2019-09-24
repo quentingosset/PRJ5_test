@@ -23,6 +23,12 @@ class student extends Model
         return $students;
     }
 
+    public static function addStudent(){
+        $students = DB::table('students')->insert(
+            []
+        );
+    }
+
     public static function progDetails($id){
         $students = DB::table('student')
             ->join('program','student.id', "=", "program.student")
