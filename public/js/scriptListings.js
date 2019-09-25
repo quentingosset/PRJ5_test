@@ -17,9 +17,10 @@ function showDetails(){
     });
 }
 
-function changeTypePresence(event,matricule){
+function changeTypePresence(event,matricule, idseance){
     let groupe = $('.listeGroupe').val();
     let course = $('.listeCourse').val();
+    
     let presence = event.target.getAttribute('data-presence');
     presence = (presence+1)%3;
     switch(presence){
@@ -45,6 +46,7 @@ function changeTypePresence(event,matricule){
             "groupe" : groupe,
             "course" : course,
             "type" : presence,
+            "seance" : idseance,
             "_token" : token,
          },
          success: function(result){
@@ -56,7 +58,7 @@ function changeTypePresence(event,matricule){
 function selectedListe(){
     let groupe = $('.listeGroupe').val();
     let course = $('.listeCourse').val();
-    if(groupe != 0 && course != 0){
+    if(groupe != null && course != null){
         location.href = "presence?groupe="+groupe+"&course=" +course;
     }
 }
@@ -68,6 +70,28 @@ function addPresence(){
     $('.buttonAddPresence').hide();
     $('.dismissAddPresence').hide();
     $('.buttonAddPresenceWait').show();
+    let token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        url: './api/seance',
+         type: 'post',
+         data: {
+            "date" : presenceDate,
+            "course" : presenceCourse,
+            "group" : presenceGroupe,
+            "_token" : token,
+         },
+         success: function(result){
+             if(result == true){
+                location.reload();
+             }else{
+                 alert("Probleme");
+                 $('.buttonAddPresence').show();
+                 $('.dismissAddPresence').show();
+                 $('.buttonAddPresenceWait').hide();
+             }
+            //console.log("SUCCESS",result);
+         }
+     });
 }
 
 function addStudent(){
@@ -79,6 +103,29 @@ function addStudent(){
     $('.buttonAddStudent').hide();
     $('.dismissAddStudent').hide();
     $('.buttonAddStudentWait').show();
+    let token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        url: './api/students',
+         type: 'post',
+         data: {
+            "matricule" : etudiantMatricule,
+            "group" : etudiantGroupe,
+            "nom" : etudiantName,
+            "prenom" : etudiantPrenom,
+            "_token" : token,
+         },
+         success: function(result){
+             if(result == true){
+                location.reload();
+             }else{
+                 alert("Probleme");
+                 $('.buttonAddStudent').show();
+                 $('.dismissAddStudent').show();
+                 $('.buttonAddStudentWait').hide();
+             }
+            //console.log("SUCCESS",result);
+         }
+     });
 }
 
 //showDetails();

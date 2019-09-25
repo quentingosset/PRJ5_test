@@ -54,4 +54,26 @@ class seance extends Model
 
     }
 
+    public static function addSeance($group,$course,$date){
+        
+        // $students = DB::table('sceance')->insert(
+        //     ["groupe_id" => $group ,"courses_id" => $course, "dates"=>$date]
+        // );
+        // $conn = dbConnect();
+        // $sql = "INSERT INTO SEANCE(groupe_id,courses_id,dates) 
+        // VALUES ($group,$course,$date)";
+        // $request = $conn->prepare($sql);
+        // $request->execute();
+        // $result = $request->fetchAll();
+        // $conn = null;
+
+        $quert=DB::insert('INSERT INTO SEANCE(groupe_id,courses_id,date) 
+        VALUES(?,?,?)',[ $group,$course,$date]);
+        return $quert;
+    }
+
+    public static function addPresence($matricule, $group, $course){
+
+    }
+
 }

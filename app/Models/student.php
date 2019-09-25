@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+
 class student extends Model
 {
     protected $table = 'students';
@@ -13,11 +14,7 @@ class student extends Model
         return $students;
     }
 
-    public static function addStudent(){
-        $students = DB::table('students')->insert(
-            []
-        );
-    }
+
 
     public static function progDetails($id){
         $students = DB::table('student')
@@ -39,21 +36,35 @@ class student extends Model
     return $students;
     }
 
-    public function addtudent(){
-        $matricule = $_POST['matricule'];
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
+    function dbConnect(
+        $serverName="localhost",
+        $dbName="ecole",
+        $userName  ="root",
+        $password  ="") {
+            $conn = new PDO( "mysql:host=$serverName;dbname=$dbName;charset=utf8", 
+            $userName, $password);
+        return $conn;
+    }
+
+
+    public static function addStudent($group, $nom, $prenom, $matricule){
         // $students = DB::table('sceance')->insert(
         //     ["groupe_id" => $group ,"courses_id" => $course, "dates"=>$date]
         // );
-        $conn = dbConnect();
-        $sql = "INSERT INTO STUDENTS(matricule,nom,prenom) 
-        VALUES ($matricule,$nom,$prenom)";
-        $request = $conn->prepare($sql);
-        $request->execute();
-        $result = $request->fetchAll();
-        $conn = null;
+        $quert=DB::insert('INSERT INTO STUDENTS(matricule,nom,prenom,groupe) 
+        VALUES(?,?,?,?)',[ $matricule,$nom,$prenom,$group]);
+        // $serverName="localhost";
+        // $dbName="ecole";
+        // $userName  ="root";
+        // $password  ="";
+        //     $conn = new PDO( "mysql:host=$serverName;dbname=$dbName;charset=utf8", 
+        //     $userName, $password);
+        // $sql = "INSERT INTO STUDENTS(matricule,nom,prenom,group) 
+        // VALUES ($matricule,$nom,$prenom,$group)";
+        // $request = $conn->prepare($sql);
+        // $request->execute();
+        // $conn = null;
+        return $quert;
     }
-}
 
 }

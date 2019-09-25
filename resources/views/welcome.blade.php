@@ -90,7 +90,7 @@
             @if( $page === 'listings')
                 <div class="col col-lg-5" style="text-align: right;">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addStudent">Ajouter un étudiant</button>
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPresence">Faire les présences</button>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPresence">Ajouter une séance</button>
                 </div>
             @endif
         </div>
@@ -118,14 +118,14 @@
                         @endphp
                         @switch($test)
                         @case(1)
-                        <td class="sceance bg-success" onclick="changeTypePresence(event,{{$etu->matricule}})"></td>
+                        <td class="sceance bg-success" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(2)
-                        <td class="sceance bg-warning" onclick="changeTypePresence(event,{{$etu->matricule}})"></td>
+                        <td class="sceance bg-warning" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(0)
                         @default
-                        <td class="sceance bg-danger" onclick="changeTypePresence(event,{{$etu->matricule}})"></td>
+                        <td class="sceance bg-danger" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @endswitch
                         @endfor
                         <td>1/{{count($sceance)}}</td>
@@ -164,7 +164,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Faire les présences</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter une séance</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -200,7 +200,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Faire les présences</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un étudiant</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -223,8 +223,8 @@
                             <label for="recipient-name" class="col-form-label">Groupe :</label>
                             <select class="form-control" id="formEtudiantGroupe" required>
                                 <option value="0" selected disabled>Selectionner un cours </option>
-                                @foreach($courses as $key => $course)
-                                    <option value="{{$course->idCourses}}">{{$course->name}}</option>
+                                @foreach($groupes as $key => $groupe)
+                                    <option value="{{$groupe->idGroupe}}">{{$groupe->name}}</option>
                                 @endforeach
                             </select>
                         </div>

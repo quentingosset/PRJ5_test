@@ -19,4 +19,5 @@
 
 Route::get('/', 'StudentController@accueil');
 Route::get('/presence', 'StudentController@presence');
-Route::get('/test','Sceance@addSceance');
+Route::post('/addSeance','Sceance@addSceance');
+//Route::post('addStudent','StudentController@addStudent');

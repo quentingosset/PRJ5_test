@@ -60,9 +60,25 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return response()->json(true);
+        $temp = student::addStudent($request->input("group"),$request->input("nom"),$request->input("prenom"),$request->input("matricule"));
+        return response()->json($temp);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createSeance(Request $request)
+    {
+        $temp = seance::addSeance($request->input("group"),$request->input("course"),$request->input("date"));
+        return response()->json($temp);
+    }
+
+    public function createPresence(Request $request){
+        
     }
 
     /**
