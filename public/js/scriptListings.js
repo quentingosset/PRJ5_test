@@ -61,6 +61,26 @@ function selectedListe(){
     }
 }
 
+function addPresence(){
+    let presenceDate = $('#formPresence_date').val();
+    let presenceCourse = $('#formPresence_course').val();
+    let presenceGroupe = $('#formPresence_groupe').val();
+    $('.buttonAddPresence').hide();
+    $('.dismissAddPresence').hide();
+    $('.buttonAddPresenceWait').show();
+}
+
+function addStudent(){
+    let etudiantName = $('#formEtudiantNom').val();
+    let etudiantPrenom = $('#formEtudiantPrenom').val();
+    let etudiantMatricule = $('#formEtudiantMatricule').val();
+    let etudiantGroupe = $('#formEtudiantGroupe').val();
+    console.log(etudiantName,etudiantPrenom,etudiantMatricule,etudiantGroupe);
+    $('.buttonAddStudent').hide();
+    $('.dismissAddStudent').hide();
+    $('.buttonAddStudentWait').show();
+}
+
 //showDetails();
 $(document).ready(function() {
 $('#table_id').DataTable({
@@ -70,7 +90,8 @@ $('#table_id').DataTable({
          ],
      searching: false,
      responsive: true,
-     "scrollX": true,
+     scrollX: true,
+     pageLength: 25,
      language: {
         processing:     "Traitement en cours...",
         search:         "Rechercher&nbsp;:",

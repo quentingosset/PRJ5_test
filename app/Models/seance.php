@@ -16,4 +16,42 @@ class seance extends Model
         return $seance;
     }
 
+    public static function presenceSeance($groupe,$course){
+        /**
+        *   SELECT * FROM students 
+        *   JOIN groupe ON students.groupe = groupe.id
+        *   JOIN seance ON students.groupe = seance.groupe_id 
+        *   LEFT JOIN presence ON students.matricule = presence.students_id 
+        *   WHERE (seance.groupe_id = 1 AND seance.courses_id = 1) 
+        *   AND ((seance.id = presence.id) || presence.id IS NULL) ORDER BY seance.id
+        *
+        *   select * from `students` inner join `groupe` on `students`.`groupe` = `groupe`.`id` inner join `seance` on `students`.`groupe` = `seance`.`groupe_id`  left join `presence` on `seance`.`id` = `presence`.`seance_id` and `students`.`matricule` = presence.students_id  where `seance`.`groupe_id` = 1 and `seance`.`courses_id` = 1  order by `seance`.`id` asc
+        *
+        *
+        */
+
+        //DB::enableQueryLog();
+    $results = DB::select('select seance.idSeance, students.matricule, presence.types from `students` inner join `groupe` on `students`.`groupe` = `groupe`.`idGroupe` inner join `seance` on `students`.`groupe` = `seance`.`groupe_id` left join `presence` on `seance`.`idSeance` = `presence`.`seance_id`and `students`.`matricule` = presence.matricules where `seance`.`groupe_id` = '.$groupe.' and `seance`.`courses_id` = '.$course.' order by `seance`.`idSeance` asc');
+        
+        /*$seance = DB::table('students')
+            ->join("groupe",'students.groupe','=','groupe.idGroupe')
+            ->join("seance",'students.groupe','=','seance.groupe_id')
+            ->rightJoin("presence","presence.seance_id","=","seance.idSeance")
+            /*->leftJoin("presence",function($join){
+                $join->on('presence.seance_id','=','seance.idSeance');
+                $join->where("presence.matricules","students.matricule");
+            })*/
+            //->join("presence",'presence.seance_id','=','seance.id')
+            /*->where("seance.groupe_id",$groupe)
+            ->where("seance.courses_id",$course)
+            ->orderBy('seance.idSeance')
+            //->select("presence.types")
+            ->get();
+            //->get(['seance.*','students.*','presence.*']);
+           *///dd(DB::getQueryLog());
+            //->keyBy('matricule');
+            return $results;
+
+    }
+
 }
