@@ -123,20 +123,20 @@
                         @endphp
                         @switch($test)
                         @case(1)
-                        <td class="sceance bg-success" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
+                        <td class="sceance bg-success" data-presence="1" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(2)
                         @php
                          $counter--;   
                         @endphp
-                        <td class="sceance bg-warning" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
+                        <td class="sceance bg-warning" data-presence="2" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(0)
                         @default
                         @php
                          $counter--;   
                         @endphp
-                        <td class="sceance bg-danger" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
+                        <td class="sceance bg-danger" data-presence="3" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @endswitch
                         @endfor
                 <td>{{$counter}}/{{count($sceance)}}</td>
