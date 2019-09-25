@@ -18,4 +18,4 @@
  */
 
 Route::get('/', 'StudentController@accueil');
-Route::get('/presence', 'StudentController@accueil');
+Route::get('/presence', 'StudentController@presence');
