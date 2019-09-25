@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\student;
+use App\Models\groupe;
+use App\Models\courses;
+use App\Models\seance;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -22,7 +25,14 @@ class StudentController extends Controller
     }
 
     public function accueil(){
-        return view('welcome',['page' => 'listings', 'etudiant' => student::listingStudent()]);
+        return view('welcome',['page' => 'welcome', 'courses' => courses::listingCourses(), 'groupes' => groupe::listingGroupe()]);
+    }
+
+    public function presence(Request $request){
+        /**
+         *   SELECT * FROM students JOIN groupe ON students.groupe = groupe.id JOIN seance ON students.groupe = seance.groupe_id LEFT JOIN presence ON students.matricule = presence.students_id WHERE groupe.id = 1 AND ((seance.id = presence.id) || presence.id IS NULL) ORDER BY seance.id
+        */
+        return view('welcome',['page' => 'listings', 'courses' => courses::listingCourses(), 'groupes' => groupe::listingGroupe(), 'etudiant' => student::listingStudent($request->input('groupe')), 'sceance' => count(seance::listingSeance($request->input('groupe'),$request->input('course'))), 'presence' => '', 'name_groupe' => courses::getName($request->input('course'))->name]);
     }
 
     public function delete(){
@@ -35,7 +45,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return response()->json(true);
     }
 
     /**

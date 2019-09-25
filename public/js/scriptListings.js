@@ -16,6 +16,51 @@ function showDetails(){
         }
     });
 }
+
+function changeTypePresence(event,matricule){
+    let groupe = $('.listeGroupe').val();
+    let course = $('.listeCourse').val();
+    let presence = event.target.getAttribute('data-presence');
+    presence = (presence+1)%3;
+    switch(presence){
+        case 0: 
+            event.target.className = "sceance bg-danger";
+            event.target.setAttribute('data-presence',presence);
+            break;
+        case 1 :
+            event.target.className = "sceance bg-success";
+            event.target.setAttribute('data-presence',presence);
+            break;
+        case 2 :
+            event.target.className = "sceance bg-warning";
+            event.target.setAttribute('data-presence',presence);
+            break;
+    }
+    let token = $("meta[name='csrf-token']").attr("content");
+    $.ajax({
+        url: './api/presence',
+         type: 'post',
+         data: {
+            "student" : matricule,
+            "groupe" : groupe,
+            "course" : course,
+            "type" : presence,
+            "_token" : token,
+         },
+         success: function(result){
+            console.log("SUCCESS",result);
+         }
+     });
+}
+
+function selectedListe(){
+    let groupe = $('.listeGroupe').val();
+    let course = $('.listeCourse').val();
+    if(groupe != 0 && course != 0){
+        location.href = "presence?groupe="+groupe+"&course=" +course;
+    }
+}
+
 //showDetails();
 $(document).ready(function() {
 $('#table_id').DataTable({
@@ -49,4 +94,5 @@ $('#table_id').DataTable({
         }
     }
 });
+
 });

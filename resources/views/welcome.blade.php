@@ -27,7 +27,7 @@
 @section('header_js')
 @stop
 @section('footer_js')
-    @if( $page === 'listings')
+    @if( $page === 'listings' || $page === 'welcome')
         <script src="{{ asset('js/scriptListings.js') }}"></script>
     @endif
     <script src="{{ asset('js/script.js') }}"></script>
@@ -44,8 +44,8 @@
 @section('content')
     <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
         <h5 class="my-0 mr-md-auto font-weight-normal">
-            @if( $page === 'listings')
-                Liste des etudiants :
+            @if( $page === 'listings' || $page === 'welcome')
+                Programme des présences  :
                 @else
             @endif
         </h5>
@@ -53,24 +53,42 @@
     </div>
     <main role="main" class="container">
     <!--<main role="main" style="padding: 50px;padding-top: 0;">-->
-        @if( $page === 'listings')
+        @if( $page === 'listings' || $page === 'welcome')
             <div class="my-3 p-3 bg-white rounded shadow-sm">
                 <div class="row">
-                    <div class="col col-lg-7"> 
+                    <div class="col col-lg-3"> 
                         Groupe :
-                            <select class="listeChannel" onchange="showDetails()">
-                                <option>E12</option>
-                                @foreach($etudiant as $key => $etu)
-                                    <option value="{{$key}}">{{$etu->nom." - ".$etu->prenom." crédits"}}</option>
+                            <select class="listeGroupe" onChange="selectedListe()">
+                                <option value="0">Selectionner un groupe</option>
+                                @foreach($groupes as $key => $groupe)
+                                    @if($groupe->id == request()->get('groupe'))
+                                        <option value="{{$groupe->id}}" selected>{{$groupe->name}}</option>
+                                    @else
+                                        <option value="{{$groupe->id}}">{{$groupe->name}}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                    </div>
+                    <div class="col col-lg-4"> 
+                        Cours :
+                            <select class="listeCourse" onChange="selectedListe()">
+                                <option value="0">Selectionner un cours </option>
+                                @foreach($courses as $key => $course)
+                                    @if($course->id == request()->get('course'))
+                                        <option value="{{$course->id}}" selected>{{$course->name}}</option>
+                                    @else
+                                        <option value="{{$course->id}}">{{$course->name}}</option>
+                                    @endif
                                 @endforeach
                             </select>
                     </div>
                     <div class="col col-lg-5" style="text-align: right;">
-                    <button type="button" class="btn btn-primary">Ajouter un étudiant</button>
-                        <button type="button" id ="seance" class="btn btn-success">Faire les présences</button>
+                    <button type="button" id="seance" class="btn btn-primary" data-toggle="modal" data-target="#addStudent">Ajouter un étudiant</button>
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#addPresence">Faire les présences</button>
                     </div>
                 </div>
             </div>
+            @if( $page === 'listings')
             <div id="detailsBox" class="col-md-12 p-3 bg-white rounded">
                 <table id="table_id" class="table table-striped table-bordered">
                     <thead style="text-align: center;">
@@ -78,30 +96,9 @@
                             <th scope="col">MATRICULE</th>
                             <th scope="col">NOM</th>
                             <th scope="col" class="no-sort">PRENOM</th>
-                            <th scope="col" class="no-sort sceance">01</th>
-                            <th scope="col" class="no-sort sceance">02</th>
-                            <th scope="col" class="no-sort sceance">03</th>
-                            <th scope="col" class="no-sort sceance">04</th>
-                            <th scope="col" class="no-sort sceance">05</th>
-                            <th scope="col" class="no-sort sceance">06</th>
-                            <th scope="col" class="no-sort sceance">07</th>
-                            <th scope="col" class="no-sort sceance">08</th>
-                            <th scope="col" class="no-sort sceance">09</th>
-                            <th scope="col" class="no-sort sceance">10</th>
-                            <th scope="col" class="no-sort sceance">11</th>
-                            <th scope="col" class="no-sort sceance">12</th>
-                            <th scope="col" class="no-sort sceance">13</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
-                            <th scope="col" class="no-sort sceance">14</th>
+                            @for ($i = 1; $i <= $sceance; $i++)
+                                <th scope="col" class="no-sort sceance">{{$i}}</th>
+                            @endfor
                             <th scope="col" class="no-sort">PRESENCE</th>
                         </tr>
                     </thead>
@@ -111,104 +108,72 @@
                                 <td>{{strtoupper($etu->matricule)}}</td>
                                 <td>{{strtoupper($etu->nom)}}</td>
                                 <td>{{strtoupper($etu->prenom)}}</td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td class="sceance bg-danger"></td>
-                                <td class="sceance bg-success"></td>
-                                <td class="sceance bg-warning"></td>
-                                <td>1/2</td>
+                                @for ($i = 1; $i <= $sceance; $i++)
+                                    <td class="sceance bg-danger" onclick="changeTypePresence(event,{{$etu->matricule}})"></td>
+                                @endfor
+                                <td>1/{{$sceance}}</td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm" >Quentin</div>
-                        <div class="col-sm" style="background-color:red;height:50px;"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-                        <div class="col-sm" style="background-color:red"></div>
-                        <div class="col-sm" style="background-color:green"></div>
-                        <div class="col-sm" style="background-color:yellow"></div>
-                        <div class="col-sm" style="background-color:orange"></div>
-
-                    </div>
-                    </div>
-                    <div class="col-md-2">
-<table class="table">
-  <thead>
-    <tr>
-        <th scope="col">Legende :</th>
-        <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr style="/* width:20% */">
-        <td style="
-    width: 20%;
-">Présent</td>
-        <td class="sceance bg-success"></td>
-    </tr>
-    <tr>
-        <td>Malade</td>
-        <td class="sceance bg-warning"></td>
-    </tr>
-    <tr>
-        <td>Absent</td>
-        <td class="sceance bg-danger"></td>
-    </tr>
-
-  </tbody>
-    </table></div>
+                <table class="table" style="width: auto;max-width: min-content;">
+                    <thead>
+                        <tr>
+                            <th scope="col">Legende :</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="/* width:20% */">
+                            <td style="width: 20%;">Présent</td>
+                            <td class="sceance bg-success"></td>
+                        </tr>
+                        <tr>
+                            <td>Malade</td>
+                            <td class="sceance bg-warning"></td>
+                        </tr>
+                        <tr>
+                            <td>Absent</td>
+                            <td class="sceance bg-danger"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
+            @endif
         @endif
     </main>
+    @if( $page === 'listings')
+    <div class="modal fade" id="addPresence" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Faire les présences</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form name="formPresence">
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Groupe : <b class="input_groupe">{{$name_groupe}}</b></label>
+                    <input type="hidden" class="form-control" id="formPresence_groupe">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Cours : <b class="input_courses">X</b></label>
+                    <input type="hidden" class="form-control" id="formPresence_course">
+                </div>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Date:</label>
+                    <input type="date" class="form-control" id="formPresence_date">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary">Ajouter</button>
+            </div>
+            </div>
+        </div>
+        @endif
+</div>
 @stop

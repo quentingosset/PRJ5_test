@@ -8,18 +8,8 @@ class student extends Model
 {
     protected $table = 'students';
 
-    public static function listingStudent(){
-        $students = DB::table('students')->orderBy('matricule','ASC')->get();
-
-        $arrayUser = array();
-        /*foreach ($students as $value ){
-            $arrayUser[$value->student]['name'] = $value->name;
-            if(array_key_exists('credits',$arrayUser[$value->student])){
-                $arrayUser[$value->student]['credits'] += $value->credits;
-            }else{
-                $arrayUser[$value->student]['credits'] = $value->credits;
-            }
-        }*/
+    public static function listingStudent($groupe){
+        $students = DB::table('students')->where('groupe',$groupe)->orderBy('matricule','ASC')->get();
         return $students;
     }
 
