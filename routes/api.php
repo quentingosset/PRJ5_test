@@ -15,6 +15,6 @@ use Illuminate\Http\Request;
 
 
 Route::post('/seance','StudentController@createSeance');
-Route::get('/presence','StudentController@createPresence');
+Route::post('/presence','StudentController@createPresence');
 //Route::delete('/presence/students','StudentController@delete');
 Route::post('/students','StudentController@create');

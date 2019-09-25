@@ -6,6 +6,7 @@ use App\Models\student;
 use App\Models\groupe;
 use App\Models\courses;
 use App\Models\seance;
+use App\Models\presence;
 use Illuminate\Http\Request;
 class StudentController extends Controller
 {
@@ -79,6 +80,10 @@ class StudentController extends Controller
 
     public function createPresence(Request $request){
         
+        $pres = presence::updateOrCreate(
+            ['seance_id' => $request->input('seance'), 'matricules' => $request->input('matricule')],
+            ['types' => $request->input('type')]
+        );
     }
 
     /**

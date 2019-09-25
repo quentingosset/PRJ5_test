@@ -73,7 +73,7 @@ class seance extends Model
     }
 
     public static function addPresence($matricule, $group, $course){
-
+        
     }
 
 }

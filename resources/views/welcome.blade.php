@@ -114,21 +114,32 @@
                     <td>{{strtoupper($etu->matricule)}}</td>
                     <td>{{strtoupper($etu->nom)}}</td>
                     <td>{{strtoupper($etu->prenom)}}</td>
-                    @for ($i = 1; $i <= count($sceance); $i++) @php $test=$presence[$etu->matricule][$i];
+                    @php
+                    $counter = count($presence[$etu->matricule]);
+                    @endphp
+                    @for ($i = 1; $i <= count($sceance); $i++) 
+                    @php $test=$presence[$etu->matricule][$i];
+                    
                         @endphp
                         @switch($test)
                         @case(1)
                         <td class="sceance bg-success" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(2)
+                        @php
+                         $counter--;   
+                        @endphp
                         <td class="sceance bg-warning" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(0)
                         @default
+                        @php
+                         $counter--;   
+                        @endphp
                         <td class="sceance bg-danger" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @endswitch
                         @endfor
-                        <td>1/{{count($sceance)}}</td>
+                <td>{{$counter}}/{{count($sceance)}}</td>
                 </tr>
                 @endforeach
             </tbody>

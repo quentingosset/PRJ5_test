@@ -42,9 +42,7 @@ function changeTypePresence(event,matricule, idseance){
         url: './api/presence',
          type: 'post',
          data: {
-            "student" : matricule,
-            "groupe" : groupe,
-            "course" : course,
+            "matricule" : matricule,
             "type" : presence,
             "seance" : idseance,
             "_token" : token,
