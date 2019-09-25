@@ -7,7 +7,6 @@ use App\Models\groupe;
 use App\Models\courses;
 use App\Models\seance;
 use Illuminate\Http\Request;
-
 class StudentController extends Controller
 {
     /**
@@ -29,10 +28,28 @@ class StudentController extends Controller
     }
 
     public function presence(Request $request){
-        /**
-         *   SELECT * FROM students JOIN groupe ON students.groupe = groupe.id JOIN seance ON students.groupe = seance.groupe_id LEFT JOIN presence ON students.matricule = presence.students_id WHERE groupe.id = 1 AND ((seance.id = presence.id) || presence.id IS NULL) ORDER BY seance.id
-        */
-        return view('welcome',['page' => 'listings', 'courses' => courses::listingCourses(), 'groupes' => groupe::listingGroupe(), 'etudiant' => student::listingStudent($request->input('groupe')), 'sceance' => count(seance::listingSeance($request->input('groupe'),$request->input('course'))), 'presence' => '', 'name_groupe' => courses::getName($request->input('course'))->name]);
+        //return seance::presenceSeance($request->input('groupe'),$request->input('course'));
+        /** formatage en tableau USER => SCEANCE => TYPE  */
+        $presence = seance::presenceSeance($request->input('groupe'),$request->input('course'));
+        $formatPresence = array();
+        foreach ($presence as $key => $value) {
+            if(!array_key_exists("".$value->matricule,$formatPresence)){
+                $formatPresence[$value->matricule][$value->idSeance] = $value->types;
+            }else{
+                if(!array_key_exists("".$value->idSeance,$formatPresence[$value->matricule])){
+                    $formatPresence[$value->matricule][$value->idSeance] = $value->types;
+                }
+            }
+        }
+        return view('welcome',
+        ['page' => 'listings', 
+        'courses' => courses::listingCourses(), 
+        'groupes' => groupe::listingGroupe(), 
+        'etudiant' => student::listingStudent($request->input('groupe')), 
+        'sceance' => seance::listingSeance($request->input('groupe'),$request->input('course')), 
+        'presence' => $formatPresence, 
+        'name_groupe' => groupe::getName($request->input('groupe'))->name,
+        'name_courses' => courses::getName($request->input('course'))->name]);
     }
 
     public function delete(){

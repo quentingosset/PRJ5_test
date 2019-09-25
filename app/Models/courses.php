@@ -14,8 +14,8 @@ class courses extends Model
     }
 
     public static function getName($idCourse){
-        $name = DB::table('courses')->select('name')->where('id',$idCourse)->first();
-        return $name;
+        $name = DB::table('courses')->select('name')->where('idCourses',$idCourse)->first();
+        return empty($name)? null : $name ;
     }
 
 }

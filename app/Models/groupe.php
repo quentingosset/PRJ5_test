@@ -13,4 +13,8 @@ class groupe extends Model
         return $groupes;
     }
 
+    public static function getName($idGroupe){
+        $name = DB::table('groupe')->select('name')->where('idGroupe',$idGroupe)->first();
+        return empty($name)? null : $name ;
+    }
 }
