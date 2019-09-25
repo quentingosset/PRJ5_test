@@ -38,4 +38,22 @@ class student extends Model
         ->delete();
     return $students;
     }
+
+    public function addtudent(){
+        $matricule = $_POST['matricule'];
+        $nom = $_POST['nom'];
+        $prenom = $_POST['prenom'];
+        // $students = DB::table('sceance')->insert(
+        //     ["groupe_id" => $group ,"courses_id" => $course, "dates"=>$date]
+        // );
+        $conn = dbConnect();
+        $sql = "INSERT INTO STUDENTS(matricule,nom,prenom) 
+        VALUES ($matricule,$nom,$prenom)";
+        $request = $conn->prepare($sql);
+        $request->execute();
+        $result = $request->fetchAll();
+        $conn = null;
+    }
+}
+
 }
