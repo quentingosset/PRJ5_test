@@ -15,10 +15,10 @@ class Sceance extends Migration
      {
          if (!Schema::hasTable('seance')) {
              Schema::create('seance', function (Blueprint $table) {
-                 $table->bigIncrements('id');
+                 $table->bigIncrements('idSeance');
                  $table->integer('groupe_id');
                  $table->integer('courses_id');
-                 $table->timestamp('dates');
+                 $table->timestamp('date');
              });
          }
      }

@@ -16,10 +16,8 @@ class Presence extends Migration
         if (!Schema::hasTable('presence')) {
             Schema::create('presence', function (Blueprint $table) {
                 $table->bigIncrements('id');
-                $table->timestamp('date');
-                $table->integer('course_id');
-                $table->integer('groupe_id');
-                $table->integer('students_id');
+                $table->integer("seance_id");
+                $table->integer('matricules');
                 $table->integer('types');
             });
         }

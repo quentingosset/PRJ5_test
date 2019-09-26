@@ -15,10 +15,11 @@ class Students extends Migration
     {
         if (!Schema::hasTable('students')) {
             Schema::create('students', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->bigIncrements('idStudent');
                 $table->integer('matricule');
-                $table->string('lastname');
-                $table->string('firstname');
+                $table->integer('groupe');
+                $table->string('nom');
+                $table->string('prenom');
             });
         }
     }

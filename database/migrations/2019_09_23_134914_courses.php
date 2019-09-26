@@ -15,7 +15,7 @@ class Courses extends Migration
     {
         if (!Schema::hasTable('courses')) {
             Schema::create('courses', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->bigIncrements('idCourses');
                 $table->string('name');
             });
         }

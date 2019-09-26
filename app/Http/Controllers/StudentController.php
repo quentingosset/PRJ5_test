@@ -10,20 +10,6 @@ use App\Models\presence;
 use Illuminate\Http\Request;
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return response()->json(student::listingStudent());
-    }
-
-    public function progDetaille($id){
-        return response()->json(student::progDetails($id));
-    }
-
     public function accueil(){
         return view('welcome',['page' => 'welcome', 'courses' => courses::listingCourses(), 'groupes' => groupe::listingGroupe()]);
     }
@@ -53,9 +39,6 @@ class StudentController extends Controller
         'name_courses' => courses::getName($request->input('course'))->name]);
     }
 
-    public function delete(){
-        return response()->json(student::removeProg($_POST['id'],$_POST['userId']));
-    }
     /**
      * Show the form for creating a new resource.
      *

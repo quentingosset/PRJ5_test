@@ -15,7 +15,7 @@ class Groupe extends Migration
     {
         if (!Schema::hasTable('groupe')) {
             Schema::create('groupe', function (Blueprint $table) {
-                $table->bigIncrements('id');
+                $table->bigIncrements('idGroupe');
                 $table->string('name');
             });
         }
