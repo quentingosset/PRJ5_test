@@ -48,22 +48,8 @@ class student extends Model
 
 
     public static function addStudent($group, $nom, $prenom, $matricule){
-        // $students = DB::table('sceance')->insert(
-        //     ["groupe_id" => $group ,"courses_id" => $course, "dates"=>$date]
-        // );
         $quert=DB::insert('INSERT INTO STUDENTS(matricule,nom,prenom,groupe) 
         VALUES(?,?,?,?)',[ $matricule,$nom,$prenom,$group]);
-        // $serverName="localhost";
-        // $dbName="ecole";
-        // $userName  ="root";
-        // $password  ="";
-        //     $conn = new PDO( "mysql:host=$serverName;dbname=$dbName;charset=utf8", 
-        //     $userName, $password);
-        // $sql = "INSERT INTO STUDENTS(matricule,nom,prenom,group) 
-        // VALUES ($matricule,$nom,$prenom,$group)";
-        // $request = $conn->prepare($sql);
-        // $request->execute();
-        // $conn = null;
         return $quert;
     }
 

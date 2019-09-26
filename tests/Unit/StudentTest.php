@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Models\student;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -17,7 +18,12 @@ class StudentTest extends TestCase
         $this->assertTrue($temp);
        }
 
-    
+     /** @test */
+     public function listingStudent(){
+        $user = factory(Student::class)->create();
+        $temp = student::listingStudent(1);
+        $this->assertTrue($temp);
+     }
 
     
 }
