@@ -16,8 +16,9 @@
  * use commande artisan to
  * php artisan serv
  */
-
-Route::get('/', 'StudentController@accueil');
-Route::get('/presence', 'StudentController@presence');
-Route::post('/addSeance','Sceance@addSceance');
+Auth::routes();
+Route::get('/', 'StudentController@accueil')->middleware('auth');
+Route::get('/presence', 'StudentController@presence')->middleware('auth');
+Route::post('/addSeance','Sceance@addSceance')->middleware('auth');
 //Route::post('addStudent','StudentController@addStudent');
+Route::get('/home', 'HomeController@index')->name('home');

@@ -13,7 +13,7 @@ class Students extends Migration
      */
     public function up()
     {
-        if (!Schema::hasTable('students')) {
+        //if (!Schema::hasTable('students')) {
             Schema::create('students', function (Blueprint $table) {
                 $table->bigIncrements('idStudent');
                 $table->integer('matricule');
@@ -22,7 +22,7 @@ class Students extends Migration
                 $table->string('prenom');
                 $table->integer('age');
             });
-        }
+        //}
     }
 
 }

@@ -50,12 +50,11 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
     <h5 class="my-0 mr-md-auto font-weight-normal">
         @if( $page === 'listings' || $page === 'welcome')
-        Programme des présences 2 :
+        Programme des présences :
         @else
         @endif
     </h5>
-    <a class="btn btn-outline-primary" href="#">Sign up</a>
-</div>
+    </div>
 <main role="main" class="container">
     <!--<main role="main" style="padding: 50px;padding-top: 0;">-->
     @if( $page === 'listings' || $page === 'welcome')
@@ -117,9 +116,9 @@
                     @php
                     $counter = count($presence[$etu->matricule]);
                     @endphp
-                    @for ($i = 1; $i <= count($sceance); $i++) 
+                    @for ($i = 1; $i <= count($sceance); $i++)
                     @php $test=$presence[$etu->matricule][$i];
-                    
+
                         @endphp
                         @switch($test)
                         @case(1)
@@ -127,14 +126,14 @@
                         @break
                         @case(2)
                         @php
-                         $counter--;   
+                         $counter--;
                         @endphp
                         <td class="sceance bg-warning" data-presence="2" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @break
                         @case(0)
                         @default
                         @php
-                         $counter--;   
+                         $counter--;
                         @endphp
                         <td class="sceance bg-danger" data-presence="3" onclick="changeTypePresence(event,{{$etu->matricule}},{{$i}})"></td>
                         @endswitch
@@ -253,4 +252,4 @@
         </div>
     </div>
     @endif
-    @stop
+   @stop

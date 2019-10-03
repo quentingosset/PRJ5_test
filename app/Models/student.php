@@ -14,6 +14,11 @@ class student extends Model
         return $students;
     }
 
+    public static function listingStudentFromGroupeName($groupe){
+        $students = DB::table('students')->join('groupe','students.groupe','=','groupe.idGroupe')->where('groupe.name',"$groupe")->orderBy('matricule','ASC')->get();
+        return $students;
+    }
+
 
     public static function progDetails($id){
         $students = DB::table('student')
@@ -40,7 +45,7 @@ class student extends Model
         $dbName="ecole",
         $userName  ="root",
         $password  ="") {
-            $conn = new PDO( "mysql:host=$serverName;dbname=$dbName;charset=utf8", 
+            $conn = new PDO( "mysql:host=$serverName;dbname=$dbName;charset=utf8",
             $userName, $password);
         return $conn;
     }

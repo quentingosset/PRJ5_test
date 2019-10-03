@@ -29,12 +29,12 @@ class StudentController extends Controller
             }
         }
         return view('welcome',
-        ['page' => 'listings', 
-        'courses' => courses::listingCourses(), 
-        'groupes' => groupe::listingGroupe(), 
-        'etudiant' => student::listingStudent($request->input('groupe')), 
-        'sceance' => seance::listingSeance($request->input('groupe'),$request->input('course')), 
-        'presence' => $formatPresence, 
+        ['page' => 'listings',
+        'courses' => courses::listingCourses(),
+        'groupes' => groupe::listingGroupe(),
+        'etudiant' => student::listingStudent($request->input('groupe')),
+        'sceance' => seance::listingSeance($request->input('groupe'),$request->input('course')),
+        'presence' => $formatPresence,
         'name_groupe' => groupe::getName($request->input('groupe'))->name,
         'name_courses' => courses::getName($request->input('course'))->name]);
     }
@@ -50,9 +50,14 @@ class StudentController extends Controller
         return response()->json($temp);
     }
 
-    public function getStudent($groupe){
-        return student::listingStudent($groupe);
+    public function allStudent($groupe = null){
+        if($groupe == null){
+            return student::all();
+        }else{
+            return student::listingStudentFromGroupeName($groupe);
+        }
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,7 +70,7 @@ class StudentController extends Controller
     }
 
     public function createPresence(Request $request){
-        
+
         $pres = presence::updateOrCreate(
             ['seance_id' => $request->input('seance'), 'matricules' => $request->input('matricule')],
             ['types' => $request->input('type')]
