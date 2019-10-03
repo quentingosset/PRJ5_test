@@ -18,3 +18,4 @@ Route::post('/seance','StudentController@createSeance');
 Route::post('/presence','StudentController@createPresence');
 //Route::delete('/presence/students','StudentController@delete');
 Route::post('/students','StudentController@create');
+Route::get('/students/{groupe}','StudentController@getStudent');

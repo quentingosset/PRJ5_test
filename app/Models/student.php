@@ -15,7 +15,6 @@ class student extends Model
     }
 
 
-
     public static function progDetails($id){
         $students = DB::table('student')
             ->join('program','student.id', "=", "program.student")

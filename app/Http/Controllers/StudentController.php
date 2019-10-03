@@ -50,6 +50,9 @@ class StudentController extends Controller
         return response()->json($temp);
     }
 
+    public function getStudent($groupe){
+        return $groupe;
+    }
     /**
      * Show the form for creating a new resource.
      *
