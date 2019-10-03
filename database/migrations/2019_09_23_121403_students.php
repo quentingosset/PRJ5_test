@@ -20,6 +20,7 @@ class Students extends Migration
                 $table->integer('groupe');
                 $table->string('nom');
                 $table->string('prenom');
+                $table->integer('age');
             });
         }
     }
