@@ -51,7 +51,7 @@ class StudentController extends Controller
     }
 
     public function getStudent($groupe){
-        return $groupe;
+        return student::listingStudent($groupe);
     }
     /**
      * Show the form for creating a new resource.
